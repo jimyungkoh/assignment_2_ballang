@@ -1,10 +1,10 @@
 import Swal from "sweetalert2";
 
-export const cartAddedAlert = () =>
+export const successAlert = (message) =>
   Swal.fire({
     position: "center",
     icon: "success",
-    title: "장바구니에 상품이 담겼습니다.",
+    title: message,
     showConfirmButton: false,
     timer: 1500,
     backdrop: false,

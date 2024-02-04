@@ -23,6 +23,6 @@ const StyledCartList = styled.section`
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   row-gap: 1.5rem;
 `;

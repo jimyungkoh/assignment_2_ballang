@@ -5,7 +5,7 @@ import { AiFillShopping } from "react-icons/ai";
 import CartButton from "../CartButton";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../store/reducers/cart.reducer";
-import { cartAddedAlert } from "../Alert";
+import { successAlert } from "../Alert";
 import convertToKRW from "../../utils/convertToKRW";
 import { useAuth } from "../../contexts/auth.context";
 
@@ -24,7 +24,7 @@ export default function ProductsListItem({ product }) {
     const productId = product.goodsno;
     const size = product.option[0].size;
     dispatch(addItem(productId, size));
-    cartAddedAlert();
+    successAlert("장바구니에 상품이 담겼습니다.");
   };
 
   const navigateToProductDetail = () =>
