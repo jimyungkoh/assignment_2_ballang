@@ -7,9 +7,6 @@ export default function CartListItem({ productId, quantity, size }) {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    console.log(productId);
-    console.log(quantity);
-    console.log(size);
     api.products.getProduct(productId).then(setProduct);
   }, [productId, quantity, size]);
 

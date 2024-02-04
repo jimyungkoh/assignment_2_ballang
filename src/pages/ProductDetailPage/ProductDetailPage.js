@@ -10,7 +10,6 @@ export default function ProductDetailPage() {
 
   useEffect(() => {
     api.products.getProduct(productId).then((product) => {
-      console.log(product);
       setProduct(product);
     });
   }, [productId]);
