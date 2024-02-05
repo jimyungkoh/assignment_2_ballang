@@ -2,13 +2,30 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import api from "../../api/api";
 import convertToKRW from "../../utils/convertToKRW";
+import { useAuth } from "../../contexts/auth.context";
+import { useNavigate } from "react-router-dom";
+import { removeItem } from "../../store/reducers/cart.reducer";
+import { useDispatch } from "react-redux";
 
 export default function CartListItem({ productId, quantity, size }) {
   const [product, setProduct] = useState(null);
+  const { signedIn } = useAuth();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     api.products.getProduct(productId).then(setProduct);
   }, [productId, quantity, size]);
+
+  if (!signedIn) navigate("/sign-in");
+
+  const handleClickRemoveItem = (e) => {
+    e.stopPropagation();
+
+    const productId = product.goodsno;
+    const size = product.option[0].size;
+    dispatch(removeItem({ productId, size }));
+  };
 
   return (
     product && (
@@ -21,6 +38,18 @@ export default function CartListItem({ productId, quantity, size }) {
           />
         </StyledCartItemImageBox>
         <StyledContentBox>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {/* onClick={removeItem} */}
+            <StyledDeleteButton onClick={handleClickRemoveItem}>
+              ✕
+            </StyledDeleteButton>
+          </div>
           <p>{product.brandnm}</p>
           <p
             style={{
@@ -66,7 +95,8 @@ const StyledCartListItem = styled.div`
   display: grid;
   grid-template-columns: 200px auto;
   grid-template-rows: 200px;
-  justify-items: center;
+  width: 100%;
+  justify-content: flex-start;
 `;
 
 const StyledCartItemImageBox = styled.div`
@@ -84,4 +114,9 @@ const StyledContentBox = styled.div`
   p {
     margin: 0;
   }
+`;
+
+const StyledDeleteButton = styled.button`
+  color: black;
+  font-size: 1.3rem;
 `;

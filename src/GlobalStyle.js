@@ -110,7 +110,8 @@ const GlobalStyle = createGlobalStyle`
         background: 0 0;
         color: #fff;
         font-weight: 700;
-        padding: 0
+        padding: 0;
+        cursor: pointer;
     }
 
     p {
